@@ -6,20 +6,21 @@ const SearchBar = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      console.log('Search term:', searchTerm);
+      alert(searchTerm);
+      setSearchTerm("");
     }
   };
 
   return (
-    <div className='flex items-center'>
+    <div className='flex w-full items-center justify-center'>
       <input
         placeholder='Search'
-        className='w-80 h-10 border border-gray-500 rounded-full bg-gray-200 indent-3'
+        className='w-1/2 h-12 border border-gray-500 rounded-full bg-gray-200 indent-3'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyPress}
       />
-      <div className="cursor-pointer">
+      <div className="cursor-pointer" onClick={handleKeyPress}>
         <IoMdSearch className='w-9 h-9 ml-1' />
       </div>
     </div>

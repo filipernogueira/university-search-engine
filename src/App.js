@@ -1,14 +1,16 @@
 import './styles.css';
 import { useState } from 'react';
-import SearchBar from "./components/SearchBar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainPage from "./pages/MainPage";
 
 function App() {
-  const [query, setQuery] = useState("");
 
   return (
-    <div className='flex flex-col h-screen w-screen justify-center items-center'>
-      <SearchBar setQuery={setQuery} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

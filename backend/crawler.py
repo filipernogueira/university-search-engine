@@ -2,31 +2,29 @@ import requests
 from bs4 import BeautifulSoup
 
 def crawler(query):
-    site = "https://www.google.com.hk/search?q="
-    url = site + query
+    print("query:", query)
+    query = query.replace(" ", "+")
+    url = "https://www.google.com.hk/search?q=" + query
+    print("url:", url)
 
     links = []
     response = requests.get(url)
+    print("response:", response)
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Find all links on the page
-        link_elements = soup.find_all('a', href=True)  # Select only <a> tags with href attribute
-        
-        links_collected = 0
-        
-        for link in link_elements:
-            if links_collected >= 10:
-                break
-            
+        link_elements = soup.find_all('a', href=True)
+          
+        for link in link_elements:     
             href = link['href']
             
-            # Check if it's a valid URL
-            if href.startswith('http'):
-                links.append(href)
-                links_collected += 1
-        
+            if href.startswith('/url?q='):
+                # Extracting the URL from the Google link format
+                clean_link = href.split('/url?q=')[1].split('&sa=')[0]
+                #links.append(clean_link)
+                links.append({"title": link.text, "link": clean_link})
+
         return links
     else:
         print("Failed to retrieve page:", response.status_code)

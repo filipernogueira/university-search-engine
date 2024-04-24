@@ -3,15 +3,13 @@ import axios from 'axios';
 
 const ResultsPage = ({ query }) => {
 
-  const [links, setLinks] = useState([]);
+  const [results, setResults] = useState([]);
 
   // Function to fetch data from the backend API
   const fetchData = async () => {
     try {
-      //const query = query;
       const response = await axios.post('http://localhost:5000/results', { query });
-      //console.log(response.data)
-      setLinks(response.data);
+      setResults(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -24,10 +22,10 @@ const ResultsPage = ({ query }) => {
   return (
     <div>
         <h1>Results</h1>
-        <p>{query}</p>
-        {links.map((link) => (
-          <div key={link}>
-            <p>{link}</p>
+        {results.map((result, idx) => (
+          <div key={idx}>
+            <a href={result.link} target="_blank">{result.title}</a>
+            <br/>
             <br/>
           </div>
         ))}

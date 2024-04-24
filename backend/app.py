@@ -9,9 +9,6 @@ CORS(app)  # Allow CORS for all routes
 def get_results():
     query = request.json.get('query')
     links = crawler(query)
-
-    links_text = [link for link in links]
-
     return links
 
 if __name__ == '__main__':

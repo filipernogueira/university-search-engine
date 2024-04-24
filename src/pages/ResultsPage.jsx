@@ -5,17 +5,16 @@ const ResultsPage = ({ query }) => {
 
   const [results, setResults] = useState([]);
 
-  // Function to fetch data from the backend API
-  const fetchData = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/results', { query });
-      setResults(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('http://127.0.0.1:5000/searchResults', { query });
+        setResults(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
     fetchData();
   }, []);
 

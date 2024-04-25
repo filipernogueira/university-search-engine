@@ -27,7 +27,7 @@ def crawler(query):
         print("Failed to retrieve page:", response.status_code)
 
 
-def get_world_ranking(ranking_type):
+def rankings(ranking_type):
     if ranking_type == "world":
         url = "https://www.scimagoir.com/rankings.php?sector=Higher%20educ."
     elif ranking_type == "cs":
@@ -48,6 +48,8 @@ def get_world_ranking(ranking_type):
             for row in rows:
                 cells = row.find_all('td')
                 university_name = cells[2].text.strip()
+                if (university_name[len(university_name) - 1] == "*"):
+                    university_name = university_name[0: len(university_name) - 2]
                 university_country = cells[3].text.strip()
                 universities.append({"name": university_name, "country": university_country})
         else:

@@ -26,7 +26,7 @@ const MainPage = ({ query, setQuery }) => {
         className='bg-gray-200 w-1/6 rounded-lg mt-5'
         onClick={() => navigate("/ranking")}
       >
-        World Ranking
+        Rankings
       </button>
     </div>
   )

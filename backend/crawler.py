@@ -14,7 +14,7 @@ def crawler(query):
         
         link_elements = soup.find_all('a', href=True)
           
-        for link in link_elements:     
+        for link in link_elements:
             href = link['href']
             
             if href.startswith('/url?q='):
@@ -58,3 +58,41 @@ def rankings(ranking_type):
         print("Failed to retrieve page:", response.status_code)
 
     return universities
+
+
+def top_universities():
+    url = "https://csrankings.org/#/index?all&world"
+
+    results = []
+
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        #print(soup.prettify())
+
+        table = soup.find('table', id="ranking")
+        print(soup)
+
+        if table:
+            #print("hey")
+            rows = table.find_all('tr')
+            #print(rows)
+            for row in rows:
+                cells = row.find_all('td')
+                print(cells)
+                break
+                """university_name = cells[2].text.strip()
+                if (university_name[len(university_name) - 1] == "*"):
+                    university_name = university_name[0: len(university_name) - 2]
+                university_country = cells[3].text.strip()
+                universities.append({"name": university_name, "country": university_country})"""
+
+        #return results
+    else:
+        print("Failed to retrieve page:", response.status_code)
+
+    return results
+
+
+#print(top_universities())

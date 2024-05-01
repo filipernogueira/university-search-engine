@@ -17,8 +17,8 @@ const RankingsPage = () => {
         <h1 className="text-3xl my-8 mx-auto">Rankings Page</h1>
       </div>
       <div className="w-full flex justify-center">
-        <button className="bg-gray-200 w-1/6 rounded-lg mt-5" onClick={() => setRankingType("world")}>World Ranking</button>
-        <button className="ml-8 bg-gray-200 w-1/6 rounded-lg mt-5" onClick={() => setRankingType("cs")}>Computer Science Ranking</button>
+        <button className="bg-gray-200 w-1/6 rounded-lg mt-5"  style={rankingType === "world" ? {backgroundColor: "gray"} : {}} onClick={() => setRankingType("world")}>World Ranking</button>
+        <button className="ml-8 bg-gray-200 w-1/6 rounded-lg mt-5" style={rankingType === "cs" ? {backgroundColor: "gray"} : {}} onClick={() => setRankingType("cs")}>Computer Science Ranking</button>
       </div>
       { rankingType !== "" &&
         <RankingTable type={rankingType} />

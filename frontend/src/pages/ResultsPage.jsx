@@ -8,7 +8,7 @@ const ResultsPage = ({ query }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://127.0.0.1:5000/searchResults', { query });
+        const response = await axios.post('http://localhost:5000/searchResults', { query });
         setResults(response.data);
         console.log(response.data);
       } catch (error) {

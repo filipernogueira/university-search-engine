@@ -8,7 +8,7 @@ const RankingTable = ({ type }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post('http://127.0.0.1:5000/universityRanking', { type });
+                const response = await axios.post('http://localhost:5000/universityRanking', { type });
                 console.log(response.data);
                 setUniversities(response.data)
             } catch (error) {

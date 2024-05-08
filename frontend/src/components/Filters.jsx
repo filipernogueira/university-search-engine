@@ -1,37 +1,36 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Dropdown } from "../components";
 
 
-const Filters = () => {
+
+const Filters = ({ setsearchArgs }) => {
     const [country, setCountry] = useState("");
     const [name, setName] = useState("");
 
+    const navigate = useNavigate();
+
     const search = async () => {
         try {
-            let url = "http://localhost:5001/search?"
             let args = []
             if (country !== "")
                 args.push("country=" + country)
             if (name !== "")
                 args.push("name=" + name)
             
-            for (let i = 0; i < args.length; i++) {
-                url += args[i]
-                if (i !== args.length - 1)
-                    url += "&"
-            }
-            const response = await axios.get(url);
-            console.log(response.data);
+            setsearchArgs(args)
+            navigate("/universities")
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
     return (
-        <div>
-            <input onChange={(e) => setCountry(e.target.value)} placeholder="country" />
-            <input onChange={(e) => setName(e.target.value)} placeholder="name" />
-            <button onClick={() => search()}>Submit</button>
+        <div className='flex justify-center'>
+            <Dropdown label="Country" options={["Portugal", "Spain", "United Kingdom", "United States", "France", "Sweden", "Germany"]} value={country} setValue={setCountry} />
+            <input className="w-60 border border-gray-500 rounded-full bg-gray-200 indent-5 focus:outline-none mx-3" onChange={(e) => setName(e.target.value)} placeholder="name" />
+            <button className="w-24 border border-gray-500 rounded-full bg-gray-200" onClick={() => search()}>Submit</button>
         </div>
     )
 }

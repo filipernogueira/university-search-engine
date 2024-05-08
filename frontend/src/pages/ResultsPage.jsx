@@ -19,13 +19,12 @@ const ResultsPage = ({ query }) => {
   }, []);
 
   return (
-    <div>
-        <h1>Results</h1>
+    <div className='flex flex-col p-8'>
+        <h1 className='text-2xl mb-8'>Results</h1>
         {results.map((result, idx) => (
-          <div key={idx}>
+          <div className="mb-5" key={idx}>
             <a href={result.link} target="_blank">{result.title}</a>
-            <br/>
-            <br/>
+            <p className='text-sm'>{result.description}</p>
           </div>
         ))}
     </div>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from "../utils/university.png"
 
 
-const MainPage = ({ query, setQuery }) => {
+const MainPage = ({ query, setQuery, setsearchArgs }) => {
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const MainPage = ({ query, setQuery }) => {
         Rankings
       </button>
 
-      <Filters />
+      <Filters setsearchArgs={setsearchArgs} />
     </div>
   )
 }

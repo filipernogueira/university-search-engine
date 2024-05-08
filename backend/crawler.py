@@ -4,23 +4,20 @@ from bs4 import BeautifulSoup
 
 def crawler(query):
     query = query.replace(" ", "+")
-    url = "https://www.google.com.hk/search?q=" + query
+    url = "https://www.bing.com/search?q=" + query
 
-    links = []
     response = requests.get(url)
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        link_elements = soup.find_all('a', href=True)
+        links = []
           
-        for link in link_elements:
-            href = link['href']
-            
-            if href.startswith('/url?q='):
-                # Extracting the URL from the Google link format
-                clean_link = href.split('/url?q=')[1].split('&sa=')[0]
-                links.append({"title": link.text, "link": clean_link})
+        for result in soup.find_all('li', class_="b_algo"):
+            title = result.find('h2').get_text()
+            link = result.find('a')['href']
+            description = result.find('p').get_text() if result.find('p') else None
+            links.append({"title": title, "link": link, "description": description})
 
         return links
     else:
@@ -75,9 +72,7 @@ def top_universities():
         print(soup)
 
         if table:
-            #print("hey")
             rows = table.find_all('tr')
-            #print(rows)
             for row in rows:
                 cells = row.find_all('td')
                 print(cells)

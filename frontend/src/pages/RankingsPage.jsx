@@ -1,30 +1,45 @@
-import { RankingTable } from "../components"
-import { useState, useEffect } from 'react';
+import { RankingTable } from "../components";
+import { useState, useEffect } from "react";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { Dropdown } from "../components";
 
+const subjects = [
+    "World",
+    "Computer Science",
+    "Engineering",
+    "Mathematics",
+    "Medicine",
+    "Business Management and Accounting",
+    "Social Sciences",
+    "Law",
+    "Communication",
+];
 
 const RankingsPage = () => {
+    const [rankingType, setRankingType] = useState("");
 
-  const [rankingType, setRankingType] = useState("");
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
+    return (
+        <div className="flex flex-col justify-center items-center">
+            <div className="w-full flex items-center justify-center my-8">
+                <IoChevronBackCircleOutline
+                    onClick={() => navigate("/")}
+                    className="w-9 h-9 cursor-pointer absolute left-5"
+                />
+                <h1 className="text-3xl">Rankings Page</h1>
+                <div></div>
+            </div>
+            <Dropdown
+                label="Subject"
+                options={subjects}
+                value={rankingType}
+                setValue={setRankingType}
+            />
+            {rankingType !== "" && <RankingTable type={rankingType} />}
+        </div>
+    );
+};
 
-  return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="w-full flex items-center">
-        <IoChevronBackCircleOutline onClick={() => navigate("/")} className="w-9 h-9 ml-10 cursor-pointer" />
-        <h1 className="text-3xl my-8 mx-auto">Rankings Page</h1>
-      </div>
-      <div className="w-full flex justify-center">
-        <button className="bg-gray-200 w-1/6 rounded-lg mt-5"  style={rankingType === "world" ? {backgroundColor: "gray"} : {}} onClick={() => setRankingType("world")}>World Ranking</button>
-        <button className="ml-8 bg-gray-200 w-1/6 rounded-lg mt-5" style={rankingType === "cs" ? {backgroundColor: "gray"} : {}} onClick={() => setRankingType("cs")}>Computer Science Ranking</button>
-      </div>
-      { rankingType !== "" &&
-        <RankingTable type={rankingType} />
-      }
-    </div>
-  )
-}
-
-export default RankingsPage
+export default RankingsPage;

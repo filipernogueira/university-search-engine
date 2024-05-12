@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { SearchBar } from "../components";
 import { Spinner } from "@material-tailwind/react";
 import axios from "axios";
 
@@ -14,7 +15,7 @@ const ResultsPage = ({ query, setQuery }) => {
         const fetchData = async () => {
             try {
                 const response = await axios.post(
-                    "http://localhost:5000/searchResults",
+                    "http://127.0.0.1:5000/searchResults",
                     { query }
                 );
                 console.log(response.data);
@@ -27,7 +28,7 @@ const ResultsPage = ({ query, setQuery }) => {
 
         setAreResultsReady(false);
         fetchData();
-    }, []);
+    }, [query]);
 
     return (
         <div className="flex flex-col p-8">
@@ -41,6 +42,9 @@ const ResultsPage = ({ query, setQuery }) => {
                 />
                 <h1 className="ml-5 text-2xl">Results</h1>
             </div>
+
+            <SearchBar query={query} setQuery={setQuery} />
+
             {areResultsReady &&
                 results &&
                 results.length !== 0 &&

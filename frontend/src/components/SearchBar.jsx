@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoMdSearch } from "react-icons/io";
 
-const SearchBar = ({ setQuery }) => {
+const SearchBar = ({ query, setQuery }) => {
     const [searchTerm, setSearchTerm] = useState("");
+
+    useEffect(() => {
+        if (query !== "") setSearchTerm(query);
+    }, [query]);
 
     const handleKeyPress = (event) => {
         if (event.key === "Enter") {

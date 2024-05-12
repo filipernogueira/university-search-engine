@@ -1,11 +1,18 @@
-import { UniversityCard } from "../components";
+import { UniversityCard, Filters } from "../components";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
 
-const UniversitiesList = ({ searchArgs }) => {
+const UniversitiesList = ({
+    country,
+    setCountry,
+    name,
+    setName,
+    searchArgs,
+    setsearchArgs,
+}) => {
     const [universities, setUniversities] = useState([]);
     const [areResultsReady, setAreResultsReady] = useState(false);
 
@@ -30,7 +37,7 @@ const UniversitiesList = ({ searchArgs }) => {
         };
         setAreResultsReady(false);
         search();
-    }, []);
+    }, [searchArgs]);
 
     return (
         <div className="flex flex-col p-8">
@@ -41,8 +48,15 @@ const UniversitiesList = ({ searchArgs }) => {
                 />
                 <h1 className="ml-5 text-2xl">Universities</h1>
             </div>
-            <h2>Searching for:</h2>
-            <span>{searchArgs}</span>
+
+            <Filters
+                country={country}
+                setCountry={setCountry}
+                name={name}
+                setName={setName}
+                setsearchArgs={setsearchArgs}
+            />
+
             {areResultsReady &&
                 universities.map((uni, idx) => (
                     <div className="mb-4" key={idx}>

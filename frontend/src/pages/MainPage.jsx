@@ -3,7 +3,15 @@ import { SearchBar, Filters } from "../components";
 import { useNavigate } from "react-router-dom";
 import logo from "../utils/university.png";
 
-const MainPage = ({ query, setQuery, setsearchArgs }) => {
+const MainPage = ({
+    query,
+    setQuery,
+    country,
+    setCountry,
+    name,
+    setName,
+    setsearchArgs,
+}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,10 +30,16 @@ const MainPage = ({ query, setQuery, setsearchArgs }) => {
             </div>
 
             <h2 className="text-xl mb-4">Search by Text</h2>
-            <SearchBar setQuery={setQuery} />
+            <SearchBar query={query} setQuery={setQuery} />
 
             <h2 className="text-xl mb-4 mt-16">Search by Filters</h2>
-            <Filters setsearchArgs={setsearchArgs} />
+            <Filters
+                country={country}
+                setCountry={setCountry}
+                name={name}
+                setName={setName}
+                setsearchArgs={setsearchArgs}
+            />
 
             <button
                 className="bg-gray-200 w-1/6 rounded-lg mt-52"

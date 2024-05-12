@@ -6,6 +6,12 @@ import { MainPage, ResultsPage, RankingsPage, UniversitiesList } from "./pages";
 function App() {
     const [query, setQuery] = useState("");
     const [searchArgs, setsearchArgs] = useState([]);
+    const [country, setCountry] = useState("");
+    const [name, setName] = useState("");
+
+    useEffect(() => {
+        console.log(searchArgs);
+    }, [searchArgs]);
 
     return (
         <BrowserRouter>
@@ -17,6 +23,10 @@ function App() {
                         <MainPage
                             query={query}
                             setQuery={setQuery}
+                            country={country}
+                            setCountry={setCountry}
+                            name={name}
+                            setName={setName}
                             setsearchArgs={setsearchArgs}
                         />
                     }
@@ -28,7 +38,16 @@ function App() {
                 <Route path="/ranking" element={<RankingsPage />} />
                 <Route
                     path="/universities"
-                    element={<UniversitiesList searchArgs={searchArgs} />}
+                    element={
+                        <UniversitiesList
+                            country={country}
+                            setCountry={setCountry}
+                            name={name}
+                            setName={setName}
+                            searchArgs={searchArgs}
+                            setsearchArgs={setsearchArgs}
+                        />
+                    }
                 />
             </Routes>
         </BrowserRouter>

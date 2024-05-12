@@ -13,10 +13,7 @@ const countries = [
     "Germany",
 ];
 
-const Filters = ({ setsearchArgs }) => {
-    const [country, setCountry] = useState("");
-    const [name, setName] = useState("");
-
+const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
     const navigate = useNavigate();
 
     const search = async () => {
@@ -42,6 +39,7 @@ const Filters = ({ setsearchArgs }) => {
             />
             <input
                 className="w-60 border border-gray-500 rounded-full bg-gray-200 indent-5 focus:outline-none mx-3"
+                value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="University Name"
             />

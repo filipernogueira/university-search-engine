@@ -10,7 +10,7 @@ const RankingTable = ({ type }) => {
         const fetchData = async () => {
             try {
                 const response = await axios.post(
-                    "http://localhost:5000/universityRanking",
+                    "http://127.0.0.1:5000/universityRanking",
                     { type }
                 );
                 console.log(response.data);
@@ -22,6 +22,7 @@ const RankingTable = ({ type }) => {
         };
 
         setAreResultsReady(false);
+        setUniversities([]);
         fetchData();
     }, [type]);
 

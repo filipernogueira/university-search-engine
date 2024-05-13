@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "../components";
+import { Button } from "@material-tailwind/react";
 
 const countries = [
     "Portugal",
@@ -43,12 +44,14 @@ const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="University Name"
             />
-            <button
-                className="w-24 border border-gray-500 rounded-full bg-gray-200"
+
+            <Button
                 onClick={() => search()}
+                variant="gradient"
+                className="flex items-center gap-3 mt-auto"
             >
                 Submit
-            </button>
+            </Button>
         </div>
     );
 };

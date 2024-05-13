@@ -22,7 +22,7 @@ const RankingsPage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center bg-background min-h-screen">
             <div className="w-full flex items-center justify-center my-8">
                 <IoChevronBackCircleOutline
                     onClick={() => navigate("/")}

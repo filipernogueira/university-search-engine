@@ -40,29 +40,36 @@ const UniversitiesList = ({
     }, [searchArgs]);
 
     return (
-        <div className="flex flex-col p-8">
+        <div className="flex flex-col p-8 align-center bg-background min-h-screen">
             <div className="flex mb-8">
                 <IoChevronBackCircleOutline
                     onClick={() => navigate("/")}
-                    className="w-9 h-9 cursor-pointer"
+                    className="w-9 h-9 cursor-pointer ml-5"
                 />
                 <h1 className="ml-5 text-2xl">Universities</h1>
+                <div></div>
             </div>
 
-            <Filters
-                country={country}
-                setCountry={setCountry}
-                name={name}
-                setName={setName}
-                setsearchArgs={setsearchArgs}
-            />
+            <div className="mb-6">
+                <Filters
+                    country={country}
+                    setCountry={setCountry}
+                    name={name}
+                    setName={setName}
+                    setsearchArgs={setsearchArgs}
+                />
+            </div>
 
-            {areResultsReady &&
-                universities.map((uni, idx) => (
-                    <div className="mb-4" key={idx}>
-                        <UniversityCard university={uni} />
-                    </div>
-                ))}
+            {areResultsReady && (
+                <div className="grid grid-cols-3 gap-10 mx-auto">
+                    {universities.map((uni, idx) => (
+                        <div key={idx}>
+                            <UniversityCard university={uni} />
+                        </div>
+                    ))}
+                </div>
+            )}
+
             {!areResultsReady && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <Spinner className="h-12 w-12" />

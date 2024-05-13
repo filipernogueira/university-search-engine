@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { SearchBar, Filters } from "../components";
 import { useNavigate } from "react-router-dom";
 import logo from "../utils/university.png";
+import { Button } from "@material-tailwind/react";
 
 const MainPage = ({
     query,
@@ -19,7 +20,7 @@ const MainPage = ({
     }, [query]);
 
     return (
-        <div className="flex flex-col h-screen w-screen items-center pt-14 bg-white">
+        <div className="flex flex-col h-screen w-screen items-center py-14 bg-background">
             <div className="flex">
                 <h1 className="text-3xl mb-20">University's Search Engine</h1>
                 <img
@@ -29,24 +30,44 @@ const MainPage = ({
                 />
             </div>
 
-            <h2 className="text-xl mb-4">Search by Text</h2>
-            <SearchBar query={query} setQuery={setQuery} />
+            <div className="flex flex-col justify-center items-center w-full">
+                <h2 className="text-xl mb-4">Text Search</h2>
+                <SearchBar query={query} setQuery={setQuery} />
+            </div>
 
-            <h2 className="text-xl mb-4 mt-16">Search by Filters</h2>
-            <Filters
-                country={country}
-                setCountry={setCountry}
-                name={name}
-                setName={setName}
-                setsearchArgs={setsearchArgs}
-            />
+            <div className="flex flex-col justify-center items-center mt-14">
+                <h2 className="text-xl mb-4">Filter Search</h2>
+                <Filters
+                    country={country}
+                    setCountry={setCountry}
+                    name={name}
+                    setName={setName}
+                    setsearchArgs={setsearchArgs}
+                />
+            </div>
 
-            <button
-                className="bg-gray-200 w-1/6 rounded-lg mt-52"
+            <Button
                 onClick={() => navigate("/ranking")}
+                variant="gradient"
+                className="flex items-center gap-3 mt-auto"
             >
+                <svg
+                    viewBox="0 0 512 512"
+                    fill="currentColor"
+                    height="1em"
+                    width="1em"
+                >
+                    <path
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={32}
+                        d="M32 160v296a8 8 0 008 8h136V160a16 16 0 00-16-16H48a16 16 0 00-16 16zM320 48H192a16 16 0 00-16 16v400h160V64a16 16 0 00-16-16zM464 208H352a16 16 0 00-16 16v240h136a8 8 0 008-8V224a16 16 0 00-16-16z"
+                    />
+                </svg>
                 Rankings
-            </button>
+            </Button>
         </div>
     );
 };

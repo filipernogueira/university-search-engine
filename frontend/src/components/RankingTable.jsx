@@ -32,13 +32,13 @@ const RankingTable = ({ type }) => {
                 <table className="w-1/2 divide-y divide-gray-200 mt-10">
                     <thead>
                         <tr>
-                            <th className="text-center p-3 bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="text-center p-3 bg-secondary text-xs font-medium text-white uppercase tracking-wider">
                                 Rank
                             </th>
-                            <th className="text-center p-3 bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="text-center p-3 bg-secondary text-xs font-medium text-white uppercase tracking-wider">
                                 Name
                             </th>
-                            <th className="text-center p-3 bg-gray-50 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="text-center p-3 bg-secondary text-xs font-medium text-white uppercase tracking-wider">
                                 Country
                             </th>
                         </tr>

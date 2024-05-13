@@ -31,8 +31,8 @@ const ResultsPage = ({ query, setQuery }) => {
     }, [query]);
 
     return (
-        <div className="flex flex-col p-8">
-            <div className="flex mb-8">
+        <div className="flex flex-col p-8 align-center bg-background min-h-screen">
+            <div className="flex">
                 <IoChevronBackCircleOutline
                     onClick={() => {
                         setQuery("");
@@ -43,21 +43,24 @@ const ResultsPage = ({ query, setQuery }) => {
                 <h1 className="ml-5 text-2xl">Results</h1>
             </div>
 
-            <SearchBar query={query} setQuery={setQuery} />
+            <div className="my-8">
+                <SearchBar query={query} setQuery={setQuery} />
+            </div>
 
             {areResultsReady &&
                 results &&
                 results.length !== 0 &&
                 results.map((result, idx) => (
-                    <div className="mb-5 w-1/2" key={idx}>
+                    <div className="mb-8 w-1/2" key={idx}>
                         <a
                             href={result.link}
                             target="_blank"
                             rel="noreferrer noopener"
+                            className="text-lg font-bold"
                         >
                             {result.title}
                         </a>
-                        <p className="text-sm">{result.description}</p>
+                        <p className="text-md">{result.description}</p>
                     </div>
                 ))}
             {areResultsReady && results && results.length === 0 && (

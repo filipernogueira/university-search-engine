@@ -19,7 +19,7 @@ const SearchBar = ({ query, setQuery }) => {
         <div className="flex w-1/2 justify-center items-center">
             <input
                 placeholder="Search"
-                className="w-full h-12 border border-gray-500 rounded-full bg-gray-200 indent-5 focus:outline-none"
+                className="w-full h-12 border border-gray-500 rounded-full bg-white indent-5 focus:outline-none"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyPress}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Spinner } from "@material-tailwind/react";
+import { url } from "../backendUrl.js";
 import axios from "axios";
 
 const RankingTable = ({ type }) => {
@@ -9,10 +10,9 @@ const RankingTable = ({ type }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post(
-                    "http://127.0.0.1:5000/universityRanking",
-                    { type }
-                );
+                const response = await axios.post(`${url}/universityRanking`, {
+                    type,
+                });
                 console.log(response.data);
                 setUniversities(response.data);
                 setAreResultsReady(true);
@@ -32,13 +32,13 @@ const RankingTable = ({ type }) => {
                 <table className="w-1/2 divide-y divide-gray-200 mt-10">
                     <thead>
                         <tr>
-                            <th className="text-center p-3 bg-secondary text-xs font-medium text-white uppercase tracking-wider">
+                            <th className="text-center p-3 bg-secondary text-xs font-medium text-white uppercase tracking-wider rounded-tl-lg rounded-bl-lg">
                                 Rank
                             </th>
                             <th className="text-center p-3 bg-secondary text-xs font-medium text-white uppercase tracking-wider">
                                 Name
                             </th>
-                            <th className="text-center p-3 bg-secondary text-xs font-medium text-white uppercase tracking-wider">
+                            <th className="text-center p-3 bg-secondary text-xs font-medium text-white uppercase tracking-wider rounded-tr-lg rounded-br-lg">
                                 Country
                             </th>
                         </tr>

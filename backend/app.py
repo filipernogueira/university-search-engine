@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from crawler import crawler, rankings
+from functions import crawler, rankings
 
 app = Flask(__name__)
 CORS(app)

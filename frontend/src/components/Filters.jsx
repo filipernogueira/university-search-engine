@@ -1,17 +1,22 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "../components";
 import { Button } from "@material-tailwind/react";
 
 const countries = [
+    "China",
+    "Ethiopia",
+    "France",
+    "Germany",
+    "Ghana",
+    "Indonesia",
+    "Malaysia",
+    "Mexico",
     "Portugal",
+    "Singapore",
     "Spain",
+    "Sweden",
     "United Kingdom",
     "United States",
-    "France",
-    "Sweden",
-    "Germany",
 ];
 
 const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
@@ -39,7 +44,7 @@ const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
                 setValue={setCountry}
             />
             <input
-                className="w-60 border border-gray-500 rounded-full bg-gray-200 indent-5 focus:outline-none mx-3"
+                className="w-60 border border-gray-500 rounded-full bg-white indent-5 focus:outline-none mx-3"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="University Name"
@@ -50,7 +55,7 @@ const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
                 variant="gradient"
                 className="flex items-center gap-3 mt-auto"
             >
-                Submit
+                Search
             </Button>
         </div>
     );

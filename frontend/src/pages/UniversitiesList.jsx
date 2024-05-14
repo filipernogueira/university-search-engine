@@ -1,9 +1,9 @@
 import { UniversityCard, Filters } from "../components";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
+import axios from "axios";
 
 const UniversitiesList = ({
     country,
@@ -21,7 +21,8 @@ const UniversitiesList = ({
     useEffect(() => {
         const search = async () => {
             try {
-                let url = "http://universities.hipolabs.com/search?";
+                let url = "https://universities.hipolabs.com/search?";
+                //let url = "http://localhost:5001/search?";
 
                 for (let i = 0; i < searchArgs.length; i++) {
                     url += searchArgs[i];
@@ -60,15 +61,20 @@ const UniversitiesList = ({
                 />
             </div>
 
-            {areResultsReady && (
-                <div className="grid grid-cols-3 gap-10 mx-auto">
-                    {universities.map((uni, idx) => (
-                        <div key={idx}>
-                            <UniversityCard university={uni} />
-                        </div>
-                    ))}
-                </div>
-            )}
+            {areResultsReady &&
+                (universities.length > 0 ? (
+                    <div className="grid grid-cols-3 gap-10 mx-auto">
+                        {universities.map((uni, idx) => (
+                            <div key={idx}>
+                                <UniversityCard university={uni} />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex justify-center items-center mt-20 text-lg">
+                        <span>No results...</span>
+                    </div>
+                ))}
 
             {!areResultsReady && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

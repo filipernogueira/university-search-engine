@@ -22,7 +22,7 @@ const MainPage = ({
     return (
         <div className="flex flex-col h-screen w-screen items-center py-14 bg-background">
             <div className="flex">
-                <h1 className="text-3xl mb-20">University's Search Engine</h1>
+                <h1 className="text-3xl mb-10">University's Search Engine</h1>
                 <img
                     className="w-10 h-10 items-center justify-center ml-3"
                     src={logo}
@@ -31,12 +31,12 @@ const MainPage = ({
             </div>
 
             <div className="flex flex-col justify-center items-center w-full">
-                <h2 className="text-xl mb-4">Text Search</h2>
+                <h2 className="text-lg mb-4">Text Search</h2>
                 <SearchBar query={query} setQuery={setQuery} />
             </div>
 
-            <div className="flex flex-col justify-center items-center mt-14">
-                <h2 className="text-xl mb-4">Filter Search</h2>
+            <div className="flex flex-col justify-center items-center mt-10">
+                <h2 className="text-lg mb-4">Filter Search</h2>
                 <Filters
                     country={country}
                     setCountry={setCountry}

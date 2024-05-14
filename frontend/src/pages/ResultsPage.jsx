@@ -3,6 +3,7 @@ import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { SearchBar } from "../components";
 import { Spinner } from "@material-tailwind/react";
+import { url } from "../backendUrl.js";
 import axios from "axios";
 
 const ResultsPage = ({ query, setQuery }) => {
@@ -14,10 +15,9 @@ const ResultsPage = ({ query, setQuery }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.post(
-                    "http://127.0.0.1:5000/searchResults",
-                    { query }
-                );
+                const response = await axios.post(`${url}/searchResults`, {
+                    query,
+                });
                 console.log(response.data);
                 setResults(response.data);
                 setAreResultsReady(true);

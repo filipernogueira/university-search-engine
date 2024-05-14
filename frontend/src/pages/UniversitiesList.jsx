@@ -21,7 +21,7 @@ const UniversitiesList = ({
     useEffect(() => {
         const search = async () => {
             try {
-                let url = "https://universities.hipolabs.com/search?";
+                let url = "http://universities.hipolabs.com/search?";
                 //let url = "http://localhost:5001/search?";
 
                 for (let i = 0; i < searchArgs.length; i++) {

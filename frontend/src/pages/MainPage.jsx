@@ -20,7 +20,7 @@ const MainPage = ({
     }, [query]);
 
     return (
-        <div className="flex flex-col h-screen w-screen items-center py-14 bg-background">
+        <div className="flex flex-col h-screen w-screen items-center py-12 bg-background">
             <div className="flex">
                 <h1 className="text-3xl mb-10">University's Search Engine</h1>
                 <img

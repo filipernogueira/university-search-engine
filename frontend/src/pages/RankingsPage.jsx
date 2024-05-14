@@ -17,7 +17,7 @@ const subjects = [
 ];
 
 const RankingsPage = () => {
-    const [rankingType, setRankingType] = useState("");
+    const [rankingType, setRankingType] = useState(subjects[0]);
 
     const navigate = useNavigate();
 

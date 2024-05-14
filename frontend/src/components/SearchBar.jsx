@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { IoMdSearch } from "react-icons/io";
+import { Button } from "@material-tailwind/react";
 
 const SearchBar = ({ query, setQuery }) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -24,9 +25,19 @@ const SearchBar = ({ query, setQuery }) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyPress}
             />
-            <div onClick={handleKeyPress}>
+            {/*<div onClick={handleKeyPress}>
                 <IoMdSearch className="w-9 h-9 ml-1" />
-            </div>
+    </div>*/}
+            <Button
+                onClick={() => {
+                    setQuery(searchTerm);
+                    setSearchTerm("");
+                }}
+                variant="gradient"
+                className="flex items-center gap-3 ml-3"
+            >
+                Search
+            </Button>
         </div>
     );
 };

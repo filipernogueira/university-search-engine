@@ -36,7 +36,7 @@ const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
     };
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center">
             <Dropdown
                 label="Country"
                 options={countries}
@@ -44,7 +44,7 @@ const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
                 setValue={setCountry}
             />
             <input
-                className="w-60 border border-gray-500 rounded-full bg-white indent-5 focus:outline-none mx-3"
+                className="w-60 h-12 border border-gray-500 rounded-full bg-white indent-5 focus:outline-none mx-3"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="University Name"
@@ -53,7 +53,7 @@ const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
             <Button
                 onClick={() => search()}
                 variant="gradient"
-                className="flex items-center gap-3 mt-auto"
+                className="flex items-center gap-3"
             >
                 Search
             </Button>

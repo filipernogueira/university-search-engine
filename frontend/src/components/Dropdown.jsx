@@ -5,6 +5,7 @@ const Dropdown = ({ label, options, value, setValue }) => {
     return (
         <div>
             <Select
+                size="lg"
                 variant="outlined"
                 label={label}
                 value={value}

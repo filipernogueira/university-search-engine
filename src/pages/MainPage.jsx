@@ -21,8 +21,8 @@ const MainPage = ({
 
     return (
         <div className="flex flex-col h-screen w-screen items-center py-12 bg-background">
-            <div className="flex">
-                <h1 className="text-3xl mb-16">University's Search Engine</h1>
+            <div className="flex mb-16">
+                <h1 className="text-3xl">University's Search Engine</h1>
                 <img
                     className="w-10 h-10 items-center justify-center ml-3"
                     src={logo}

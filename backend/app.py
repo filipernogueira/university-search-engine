@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from functions import crawler, rankings
+from functions import crawler, rankings, university_list
 
 app = Flask(__name__)
 CORS(app)
@@ -13,9 +13,22 @@ def get_results():
 
 @app.route('/universityRanking', methods=['POST'])
 def get_ranking():
-    ranking_type = request.json.get('type')
-    ranking = rankings(ranking_type)
-    return jsonify(ranking)
+    subject = request.json.get('subject')
+    country = request.json.get('country')
+    subject = "" if subject is None else subject
+    country = "" if country is None else country
+    if (subject != "" or country != ""):
+        ranking = rankings(subject, country)
+        return jsonify(ranking)
+    else:
+        return jsonify([])
+
+@app.route('/universityList', methods=['POST'])
+def get_university_list():
+    country = request.json.get('country')
+    name = request.json.get('name')
+    universities = university_list(country, name)
+    return jsonify(universities)
 
 
 if __name__ == '__main__':

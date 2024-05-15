@@ -7,14 +7,6 @@ import {
 } from "@material-tailwind/react";
 
 const UniversityCard = ({ university }) => {
-    function getFormattedUrl(url) {
-        let formattedUrl = url.replace(/^(https?:\/\/)?/, "");
-
-        formattedUrl = formattedUrl.replace(/\/+$/, "");
-
-        return formattedUrl;
-    }
-
     return (
         <>
             <Card className="mt-6 w-96 h-60">
@@ -23,7 +15,15 @@ const UniversityCard = ({ university }) => {
                         {university.name}
                     </Typography>
                     <Typography>
-                        {university.alpha_two_code}: {university.country}
+                        <span style={{ fontWeight: "bold" }}>
+                            {university.alpha_two_code}
+                        </span>
+                        : {university.country}
+                    </Typography>
+                    <Typography>
+                        {university.world_rank
+                            ? `#${university.world_rank} World`
+                            : ""}
                     </Typography>
                 </CardBody>
                 <CardFooter className="mt-auto pt-0">

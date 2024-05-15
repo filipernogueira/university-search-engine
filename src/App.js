@@ -9,10 +9,6 @@ function App() {
     const [country, setCountry] = useState("");
     const [name, setName] = useState("");
 
-    useEffect(() => {
-        console.log(searchArgs);
-    }, [searchArgs]);
-
     return (
         <BrowserRouter>
             <Routes>

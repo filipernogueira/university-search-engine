@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
+import { url } from "../backendUrl.js";
 import axios from "axios";
 
 const UniversitiesList = ({
@@ -21,14 +22,11 @@ const UniversitiesList = ({
     useEffect(() => {
         const search = async () => {
             try {
-                let url = "http://universities.hipolabs.com/search?";
-                //let url = "http://localhost:5001/search?";
+                const response = await axios.post(`${url}/universityList`, {
+                    country,
+                    name,
+                });
 
-                for (let i = 0; i < searchArgs.length; i++) {
-                    url += searchArgs[i];
-                    if (i !== searchArgs.length - 1) url += "&";
-                }
-                const response = await axios.get(url);
                 console.log(response.data);
                 setUniversities(response.data.slice(0, 5000));
                 setAreResultsReady(true);

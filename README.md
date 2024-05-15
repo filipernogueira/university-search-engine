@@ -1,1 +1,3 @@
-# Wen Information Retrieval
+# Web Information Retrieval
+
+University's Search Engine

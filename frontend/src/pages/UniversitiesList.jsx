@@ -41,11 +41,11 @@ const UniversitiesList = ({
     }, [searchArgs]);
 
     return (
-        <div className="flex flex-col p-8 align-center bg-background min-h-screen">
+        <div className="flex flex-col p-10 items-start bg-background min-h-screen">
             <div className="flex mb-8">
                 <IoChevronBackCircleOutline
                     onClick={() => navigate("/")}
-                    className="w-9 h-9 cursor-pointer ml-5"
+                    className="w-9 h-9 cursor-pointer"
                 />
                 <h1 className="ml-5 text-2xl">Universities</h1>
                 <div></div>

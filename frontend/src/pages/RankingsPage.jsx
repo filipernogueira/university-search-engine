@@ -22,14 +22,14 @@ const RankingsPage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="flex flex-col items-center bg-background min-h-screen">
-            <div className="w-full flex items-center justify-center my-8">
+        <div className="flex flex-col p-10 items-center bg-background min-h-screen">
+            <div className="w-full flex items-center justify-between mb-8">
                 <IoChevronBackCircleOutline
                     onClick={() => navigate("/")}
-                    className="w-9 h-9 cursor-pointer absolute left-5"
+                    className="w-9 h-9 cursor-pointer"
                 />
                 <h1 className="text-3xl">Rankings Page</h1>
-                <div></div>
+                <div className="w-9"></div>
             </div>
             <Dropdown
                 label="Subject"

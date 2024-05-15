@@ -11,6 +11,7 @@ const countries = [
     "Indonesia",
     "Malaysia",
     "Mexico",
+    "Norway",
     "Portugal",
     "Singapore",
     "Spain",

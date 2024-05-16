@@ -18,7 +18,9 @@ const RankingTable = ({ universities }) => {
                 <tbody className="bg-white divide-y divide-gray-200">
                     {universities.map((university, idx) => (
                         <tr key={idx}>
-                            <td className="text-center p-4">{idx + 1}</td>
+                            <td className="text-center p-4">
+                                {university.rank}
+                            </td>
                             <td className="text-center p-4">
                                 {university.name}
                             </td>

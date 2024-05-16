@@ -6,7 +6,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 
-const UniversityCard = ({ university }) => {
+const UniversityCard = ({ university, country }) => {
     return (
         <>
             <Card className="mt-6 w-96 h-60">
@@ -23,6 +23,8 @@ const UniversityCard = ({ university }) => {
                     <Typography>
                         {university.world_rank
                             ? `#${university.world_rank} World`
+                            : university.country_rank
+                            ? `#${university.country_rank} ${country}`
                             : ""}
                     </Typography>
                 </CardBody>

@@ -3,6 +3,38 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlencode, urlunparse
 from fuzzywuzzy import fuzz
 import time
+import csv
+
+
+subjects = {
+    "Computer Science": "&area=1700",
+    "Engineering": "&area=2200",
+    "Mathematics": "&area=2600",
+    "Medicine": "&area=2700",
+    "Business Management and Accounting": "&area=1400",
+    "Social Sciences": "&area=3300",
+    "Law": "&area=3308",
+    "Communication": "&area=3315"
+}
+
+countries = {
+    "World": "",
+    "China": "&country=CHN",
+    "Ethiopia": "&country=ETH",
+    "France": "&country=FRA",
+    "Germany": "&country=DEU",
+    "Ghana": "&country=GHA",
+    "Indonesia": "&country=IDN",
+    "Malaysia": "&country=MYS",
+    "Mexico": "&country=MEX",
+    "Norway": "&country=NOR",
+    "Portugal": "&country=PRT",
+    "Singapore": "&country=SGP",
+    "Spain": "&country=ESP",
+    "Sweden": "&country=SWE",
+    "United Kingdom": "&country=GBR",
+    "United States": "&country=USA",
+}
 
 bingHeaders = {
     #"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
@@ -54,36 +86,6 @@ def crawler(query):
 
 
 def rankings(subject, country):
-    subjects = {
-        "Computer Science": "&area=1700",
-        "Engineering": "&area=2200",
-        "Mathematics": "&area=2600",
-        "Medicine": "&area=2700",
-        "Business Management and Accounting": "&area=1400",
-        "Social Sciences": "&area=3300",
-        "Law": "&area=3308",
-        "Communication": "&area=3315"
-    }
-
-    countries = {
-        "World": "",
-        "China": "&country=CHN",
-        "Ethiopia": "&country=ETH",
-        "France": "&country=FRA",
-        "Germany": "&country=DEU",
-        "Ghana": "&country=GHA",
-        "Indonesia": "&country=IDN",
-        "Malaysia": "&country=MYS",
-        "Mexico": "&country=MEX",
-        "Norway": "&country=NOR",
-        "Portugal": "&country=PRT",
-        "Singapore": "&country=SGP",
-        "Spain": "&country=ESP",
-        "Sweden": "&country=SWE",
-        "United Kingdom": "&country=GBR",
-        "United States": "&country=USA",
-    }
-
     base_url = "https://www.scimagoir.com/rankings.php?sector=Higher+educ."
     if subject != "":
         url = base_url + subjects[subject]
@@ -102,7 +104,7 @@ def rankings(subject, country):
         if table:
             rows = table.find_all('tr')[1:] if (country == "World" or country != "") else table.find_all('tr')
             
-            for row in rows:
+            for index, row in enumerate(rows):
                 cells = row.find_all('td')
                 if not cells:
                     continue
@@ -110,7 +112,7 @@ def rankings(subject, country):
                 if (university_name[len(university_name) - 1] == "*"):
                     university_name = university_name[0: len(university_name) - 2]
                 university_country = cells[3].text.strip()
-                universities.append({"name": university_name, "country": university_country})
+                universities.append({"name": university_name, "rank": index + 1, "country": university_country})
         else:
             print("Table not found on the page.")
     else:
@@ -138,7 +140,33 @@ def university_list(country, name):
 
     if response.status_code == 200:
         data = response.json()
-        world_ranking = rankings("", "World")
+
+        world_ranking = load_csv('rankings/World.csv')
+        country_ranking = None
+
+        for uni in data:
+            uni_name = uni["name"]
+            uni_rank = None
+
+            for index, item in enumerate(world_ranking):
+                if are_same_university(item['University'], uni_name):
+                    uni_rank = item['Rank']
+                    break
+            
+            uni["world_rank"] = uni_rank
+            
+            if uni_rank is None and country and country != "":
+                if country_ranking is None:
+                    country_ranking = load_csv(f'rankings/{country}.csv')
+
+                for index2, item2 in enumerate(country_ranking):
+                    if are_same_university(item2['University'], uni_name):
+                        uni_rank = item2['Rank']
+                        break
+
+                uni["country_rank"] = uni_rank
+
+        """world_ranking = rankings("", "World")
 
         for uni in data:
             uni_name = uni["name"]
@@ -149,17 +177,42 @@ def university_list(country, name):
                     uni_rank = index + 1
                     break
             
-            """if uni_rank == None:
+            if uni_rank == None:
                 #print("n encontrei vou ver no país")
                 country_ranking = rankings("", country)
                 for index2, item2 in enumerate(country_ranking):
                     #print(uni_name, item2)
                     if are_same_university(item2['name'], uni_name):
                         uni_rank = index2 + 1
-                        break"""
+                        break
 
-            uni["world_rank"] = uni_rank
+            uni["world_rank"] = uni_rank"""
 
         return data
     else:
         print("Error:", response.status_code)
+
+
+def load_csv(filename):
+    data = []
+    with open(filename, 'r', newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            data.append(row)
+    return data
+
+
+def save_to_csv(data, filename):
+    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = ['Rank', 'University', 'Country']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for item in data:
+            writer.writerow({'Rank': item['rank'], 'University': item['name'], 'Country': item['country']})
+
+
+
+
+#for country in countries:
+    #data = rankings("", country)
+    #save_to_csv(data, f'./rankings/{country}.csv')

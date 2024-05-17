@@ -53,7 +53,7 @@ def crawler(query):
             links.append({"title": title, "link": link, "description": description})
         return links
 
-    for keyword in ["university", "college", "degree", "course", "school"]:
+    for keyword in ["university", "degree"]:
         if keyword not in query.lower():
             adjusted_query = query + " " + keyword
             params = {"q": adjusted_query}
@@ -126,71 +126,61 @@ def are_same_university(university1, university2):
     return similarity_score >= 90  # You can adjust the threshold as needed
 
 
-def university_list(country, name):
-    api_url = "http://universities.hipolabs.com/search?"
+def university_list(country, name, is_check_rankings, load_from_csv):
+    if not load_from_csv or name != "":
+        api_url = "http://universities.hipolabs.com/search?"
 
-    if country != "":
-        api_url += "country=" + country
-        if name != "":
-            api_url += "&name=" + name
-    elif name != "":
-        api_url += "name=" + name
+        if country != "":
+            api_url += "country=" + country
+            if name != "":
+                api_url += "&name=" + name
+        elif name != "":
+            api_url += "name=" + name
 
-    response = requests.get(api_url)
+        response = requests.get(api_url)
 
-    if response.status_code == 200:
-        data = response.json()
+        if response.status_code == 200:
+            data = response.json()
 
-        world_ranking = load_csv('rankings/World.csv')
-        country_ranking = None
+            if is_check_rankings:
+                check_rankings(country, data, load_from_csv)
 
-        for uni in data:
-            uni_name = uni["name"]
-            uni_rank = None
-
-            for index, item in enumerate(world_ranking):
-                if are_same_university(item['University'], uni_name):
-                    uni_rank = item['Rank']
-                    break
-            
-            uni["world_rank"] = uni_rank
-            
-            if uni_rank is None and country and country != "":
-                if country_ranking is None:
-                    country_ranking = load_csv(f'rankings/{country}.csv')
-
-                for index2, item2 in enumerate(country_ranking):
-                    if are_same_university(item2['University'], uni_name):
-                        uni_rank = item2['Rank']
-                        break
-
-                uni["country_rank"] = uni_rank
-
-        """world_ranking = rankings("", "World")
-
-        for uni in data:
-            uni_name = uni["name"]
-            uni_rank = None
-
-            for index, item in enumerate(world_ranking):
-                if are_same_university(item['name'], uni_name):
-                    uni_rank = index + 1
-                    break
-            
-            if uni_rank == None:
-                #print("n encontrei vou ver no país")
-                country_ranking = rankings("", country)
-                for index2, item2 in enumerate(country_ranking):
-                    #print(uni_name, item2)
-                    if are_same_university(item2['name'], uni_name):
-                        uni_rank = index2 + 1
-                        break
-
-            uni["world_rank"] = uni_rank"""
-
-        return data
+            return data
+        else:
+            print("Error:", response.status_code)
+    
     else:
-        print("Error:", response.status_code)
+        data = load_csv(f"universities lists/{country}.csv")
+        if is_check_rankings:
+            check_rankings(country, data, load_from_csv)
+        return data
+
+
+
+def check_rankings(country, unis, load_from_csv):
+    world_ranking = load_csv('rankings/World.csv') if load_from_csv else rankings("", country)
+
+    for uni in unis:
+        uni_name = uni["name"]
+        uni_rank = None
+
+        for index, item in enumerate(world_ranking):
+            if are_same_university(item['University'], uni_name):
+                uni_rank = item['Rank']
+                break
+
+        uni["world_rank"] = uni_rank
+        
+        country_ranking = None
+        if uni_rank is None and country and country != "" and country != "World":
+            country_ranking = load_csv(f'rankings/{country}.csv') if load_from_csv else rankings("", country)
+
+            for index2, item2 in enumerate(country_ranking):
+                if are_same_university(item2['University'], uni_name):
+                    uni_rank = item2['Rank']
+                    break
+
+            uni["country_rank"] = uni_rank
 
 
 def load_csv(filename):
@@ -202,17 +192,29 @@ def load_csv(filename):
     return data
 
 
-def save_to_csv(data, filename):
-    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['Rank', 'University', 'Country']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for item in data:
-            writer.writerow({'Rank': item['rank'], 'University': item['name'], 'Country': item['country']})
+def save_to_csv(data, filename, ranking):
+    if ranking:
+        with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['Rank', 'University', 'Country']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for item in data:
+                writer.writerow({'Rank': item['rank'], 'University': item['name'], 'Country': item['country']})
+    else:
+        with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ["name", "country", "alpha_two_code", "web_pages"]
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for item in data:
+                writer.writerow({'name': item['name'], 'country': item['country'], 'alpha_two_code': item['alpha_two_code'], 'web_pages': item['web_pages'][0]})
 
 
 
 
-#for country in countries:
-    #data = rankings("", country)
-    #save_to_csv(data, f'./rankings/{country}.csv')
+"""for country in countries:
+    data = rankings("", country)
+    save_to_csv(data, f'./rankings/{country}.csv', True)"""
+
+"""for country in countries:
+    universities_list = university_list(country, "", False, False)
+    save_to_csv(universities_list, f'./universities lists/{country}.csv', False)"""

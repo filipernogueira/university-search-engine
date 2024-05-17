@@ -11,8 +11,8 @@ const UniversitiesList = ({
     setCountry,
     name,
     setName,
-    searchArgs,
-    setsearchArgs,
+    isListSearchReady,
+    setIsListSearchReady,
 }) => {
     const [universities, setUniversities] = useState([]);
     const [areResultsReady, setAreResultsReady] = useState(false);
@@ -36,7 +36,7 @@ const UniversitiesList = ({
         };
         setAreResultsReady(false);
         search();
-    }, [searchArgs]);
+    }, [isListSearchReady]);
 
     return (
         <div className="flex flex-col p-10 items-start bg-background min-h-screen">
@@ -55,7 +55,7 @@ const UniversitiesList = ({
                     setCountry={setCountry}
                     name={name}
                     setName={setName}
-                    setsearchArgs={setsearchArgs}
+                    setIsListSearchReady={setIsListSearchReady}
                 />
             </div>
 
@@ -72,7 +72,7 @@ const UniversitiesList = ({
                         ))}
                     </div>
                 ) : (
-                    <div className="flex justify-center items-center mt-20 text-lg">
+                    <div className="flex justify-center items-center mt-10 ml-3 text-xl">
                         <span>No results...</span>
                     </div>
                 ))}

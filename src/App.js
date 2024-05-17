@@ -1,11 +1,11 @@
 import "./styles.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainPage, ResultsPage, RankingsPage, UniversitiesList } from "./pages";
 
 function App() {
     const [query, setQuery] = useState("");
-    const [searchArgs, setsearchArgs] = useState([]);
+    const [isListSearchReady, setIsListSearchReady] = useState([]);
     const [country, setCountry] = useState("");
     const [name, setName] = useState("");
 
@@ -23,7 +23,7 @@ function App() {
                             setCountry={setCountry}
                             name={name}
                             setName={setName}
-                            setsearchArgs={setsearchArgs}
+                            setIsListSearchReady={setIsListSearchReady}
                         />
                     }
                 />
@@ -40,8 +40,8 @@ function App() {
                             setCountry={setCountry}
                             name={name}
                             setName={setName}
-                            searchArgs={searchArgs}
-                            setsearchArgs={setsearchArgs}
+                            isListSearchReady={isListSearchReady}
+                            setIsListSearchReady={setIsListSearchReady}
                         />
                     }
                 />

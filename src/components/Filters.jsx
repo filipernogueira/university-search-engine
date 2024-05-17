@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { Dropdown } from "../components";
-import { Button } from "@material-tailwind/react";
+import { Dropdown, ActionButton } from "../components";
+import { searchLogo } from "../utils/logosSVG";
 
 const countries = [
     "China",
@@ -20,17 +20,21 @@ const countries = [
     "United States",
 ];
 
-const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
+const Filters = ({
+    country,
+    setCountry,
+    name,
+    setName,
+    setIsListSearchReady,
+}) => {
     const navigate = useNavigate();
 
     const search = async () => {
         try {
-            let args = [];
-            if (country !== "") args.push("country=" + country);
-            if (name !== "") args.push("name=" + name);
-
-            setsearchArgs(args);
-            navigate("/universities");
+            if (country !== "" || name !== "") {
+                setIsListSearchReady((prev) => !prev);
+                navigate("/universities");
+            } else alert("Insert Information.");
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -45,19 +49,17 @@ const Filters = ({ country, setCountry, name, setName, setsearchArgs }) => {
                 setValue={setCountry}
             />
             <input
-                className="w-60 h-12 border border-gray-500 rounded-full bg-white indent-5 focus:outline-none mx-3"
+                className="w-60 h-11 border border-gray-500 rounded-full bg-white indent-5 focus:outline-none mx-3"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="University Name"
             />
 
-            <Button
+            <ActionButton
+                logo={searchLogo}
+                text="Search"
                 onClick={() => search()}
-                variant="gradient"
-                className="flex items-center gap-3"
-            >
-                Search
-            </Button>
+            />
         </div>
     );
 };

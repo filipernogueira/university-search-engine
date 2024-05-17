@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { SearchBar, Filters } from "../components";
+import { SearchBar, Filters, ActionButton } from "../components";
 import { useNavigate } from "react-router-dom";
 import logo from "../utils/university.png";
-import { Button } from "@material-tailwind/react";
+import { ranking } from "../utils/logosSVG";
 
 const MainPage = ({
     query,
@@ -11,7 +11,7 @@ const MainPage = ({
     setCountry,
     name,
     setName,
-    setsearchArgs,
+    setIsListSearchReady,
 }) => {
     const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const MainPage = ({
                     setCountry={setCountry}
                     name={name}
                     setName={setName}
-                    setsearchArgs={setsearchArgs}
+                    setIsListSearchReady={setIsListSearchReady}
                 />
             </div>
 
@@ -46,28 +46,13 @@ const MainPage = ({
                 <SearchBar query={query} setQuery={setQuery} />
             </div>
 
-            <Button
-                onClick={() => navigate("/ranking")}
-                variant="gradient"
-                className="flex items-center gap-3 mt-auto"
-            >
-                <svg
-                    viewBox="0 0 512 512"
-                    fill="currentColor"
-                    height="1em"
-                    width="1em"
-                >
-                    <path
-                        fill="none"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={32}
-                        d="M32 160v296a8 8 0 008 8h136V160a16 16 0 00-16-16H48a16 16 0 00-16 16zM320 48H192a16 16 0 00-16 16v400h160V64a16 16 0 00-16-16zM464 208H352a16 16 0 00-16 16v240h136a8 8 0 008-8V224a16 16 0 00-16-16z"
-                    />
-                </svg>
-                Rankings
-            </Button>
+            <div className="mt-auto">
+                <ActionButton
+                    logo={ranking}
+                    text="Rankings"
+                    onClick={() => navigate("/ranking")}
+                />
+            </div>
         </div>
     );
 };

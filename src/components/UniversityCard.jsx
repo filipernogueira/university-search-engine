@@ -21,11 +21,23 @@ const UniversityCard = ({ university, country }) => {
                         : {university.country}
                     </Typography>
                     <Typography>
-                        {university.world_rank
-                            ? `#${university.world_rank} World`
-                            : university.country_rank
-                            ? `#${university.country_rank} ${country}`
-                            : ""}
+                        {university.world_rank ? (
+                            <div>
+                                <span style={{ fontWeight: "bold" }}>
+                                    #{university.world_rank}
+                                </span>
+                                <span> World</span>
+                            </div>
+                        ) : university.country_rank ? (
+                            <div>
+                                <span style={{ fontWeight: "bold" }}>
+                                    #{university.country_rank}
+                                </span>
+                                <span> {country}</span>
+                            </div>
+                        ) : (
+                            ""
+                        )}
                     </Typography>
                 </CardBody>
                 <CardFooter className="mt-auto pt-0">

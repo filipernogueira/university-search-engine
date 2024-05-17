@@ -1,9 +1,10 @@
-import { RankingTable, Dropdown } from "../components";
+import { RankingTable, Dropdown, ActionButton } from "../components";
 import { useState, useEffect } from "react";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { Button, Spinner } from "@material-tailwind/react";
 import { url } from "../backendUrl.js";
+import { searchLogo } from "../utils/logosSVG";
 import axios from "axios";
 
 const subjects = [
@@ -89,13 +90,12 @@ const RankingsPage = () => {
                         setValue={setCountry}
                     />
                 </div>
-                <Button
+
+                <ActionButton
+                    logo={searchLogo}
+                    text="Search"
                     onClick={() => search()}
-                    variant="gradient"
-                    className="flex items-center gap-3"
-                >
-                    Search
-                </Button>
+                />
             </div>
             {areResultsReady === true && universities.length !== 0 && (
                 <RankingTable
@@ -104,9 +104,8 @@ const RankingsPage = () => {
                 />
             )}
             {areResultsReady === true && universities.length === 0 && (
-                <div className=" flex flex-col items-center mt-24">
-                    <span className="text-lg">No Results...</span>
-                    <span className="text-lg">Input Information..</span>
+                <div className=" flex mt-24">
+                    <span className="text-lg">Input Information.</span>
                 </div>
             )}
             {areResultsReady === false && (

@@ -31,7 +31,7 @@ const ResultsPage = ({ query, setQuery }) => {
     }, [query]);
 
     return (
-        <div className="flex flex-col p-10 align-center bg-background min-h-screen">
+        <div className="flex flex-col p-10 bg-background min-h-screen">
             <div className="flex">
                 <IoChevronBackCircleOutline
                     onClick={() => {
@@ -43,7 +43,7 @@ const ResultsPage = ({ query, setQuery }) => {
                 <h1 className="ml-5 text-2xl">Results</h1>
             </div>
 
-            <div className="my-8">
+            <div className="flex my-8">
                 <SearchBar query={query} setQuery={setQuery} />
             </div>
 

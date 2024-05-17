@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { IoMdSearch } from "react-icons/io";
-import { Button } from "@material-tailwind/react";
+import { ActionButton } from "../components";
+import { searchLogo } from "../utils/logosSVG";
 
 const SearchBar = ({ query, setQuery }) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -9,35 +9,32 @@ const SearchBar = ({ query, setQuery }) => {
         if (query !== "") setSearchTerm(query);
     }, [query]);
 
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
+    const search = () => {
+        if (searchTerm !== "") {
             setQuery(searchTerm);
             setSearchTerm("");
-        }
+        } else alert("Insert a query.");
+    };
+
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") search();
     };
 
     return (
-        <div className="flex w-1/2 justify-center items-center">
+        <div className="flex justify-center items-center">
             <input
                 placeholder="Search"
-                className="w-full h-12 border border-gray-500 rounded-full bg-white indent-5 focus:outline-none"
+                className="w-96 h-11 border border-gray-500 rounded-full bg-white indent-5 focus:outline-none mr-3"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyPress}
             />
-            {/*<div onClick={handleKeyPress}>
-                <IoMdSearch className="w-9 h-9 ml-1" />
-    </div>*/}
-            <Button
-                onClick={() => {
-                    setQuery(searchTerm);
-                    setSearchTerm("");
-                }}
-                variant="gradient"
-                className="flex items-center gap-3 ml-3"
-            >
-                Search
-            </Button>
+
+            <ActionButton
+                logo={searchLogo}
+                text="Search"
+                onClick={() => search()}
+            />
         </div>
     );
 };

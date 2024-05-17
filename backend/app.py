@@ -2,6 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from functions import crawler, rankings, university_list
 
+load_from_csv = True
+is_check_rankings = True
+max_university_list_length = 1000
+
 app = Flask(__name__)
 CORS(app)
 
@@ -27,7 +31,7 @@ def get_ranking():
 def get_university_list():
     country = request.json.get('country')
     name = request.json.get('name')
-    universities = university_list(country, name)
+    universities = university_list(country, name, is_check_rankings, load_from_csv)[0: max_university_list_length + 1]
     return jsonify(universities)
 
 

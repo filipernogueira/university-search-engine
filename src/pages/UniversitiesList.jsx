@@ -28,7 +28,7 @@ const UniversitiesList = ({
                 });
 
                 console.log(response.data);
-                setUniversities(response.data.slice(0, 5000));
+                setUniversities(response.data);
                 setAreResultsReady(true);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -64,11 +64,7 @@ const UniversitiesList = ({
                     <div className="grid grid-cols-3 gap-10 mx-auto">
                         {universities.map((uni, idx) => (
                             <div key={idx}>
-                                {console.log(universities)}
-                                <UniversityCard
-                                    university={uni}
-                                    country={country}
-                                />
+                                <UniversityCard university={uni} />
                             </div>
                         ))}
                     </div>

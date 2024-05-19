@@ -6,39 +6,72 @@ import {
     Button,
 } from "@material-tailwind/react";
 
-const UniversityCard = ({ university, country }) => {
+const UniversityCard = ({ university }) => {
     return (
         <>
-            <Card className="mt-6 w-96 h-60">
+            <Card className="mt-6 w-96 h-64">
                 <CardBody>
                     <Typography variant="h5" color="blue-gray" className="mb-2">
                         {university.name}
                     </Typography>
+
                     <Typography>
                         <span style={{ fontWeight: "bold" }}>
                             {university.alpha_two_code}
                         </span>
                         : {university.country}
                     </Typography>
-                    <Typography>
-                        {university.world_rank ? (
-                            <>
-                                <span style={{ fontWeight: "bold" }}>
-                                    #{university.world_rank}
-                                </span>
-                                <span> World</span>
-                            </>
-                        ) : university.country_rank ? (
-                            <>
-                                <span style={{ fontWeight: "bold" }}>
-                                    #{university.country_rank}
-                                </span>
-                                <span> {country}</span>
-                            </>
-                        ) : (
-                            ""
+                    <div className="mt-3">
+                        {university.world_rank && (
+                            <Typography>
+                                <>
+                                    <span style={{ fontWeight: "bold" }}>
+                                        #{university.world_rank}
+                                    </span>
+                                    <span> World</span>
+                                </>
+                            </Typography>
                         )}
-                    </Typography>
+                        {university.country_rank && (
+                            <Typography>
+                                <>
+                                    <span style={{ fontWeight: "bold" }}>
+                                        #{university.country_rank}
+                                    </span>
+                                    <span> {university.alpha_two_code}</span>
+                                </>
+                            </Typography>
+                        )}
+                    </div>
+
+                    {/*(university.world_rank || university.country_rank) && (
+                        <div className="flex items-center mt-2">
+                            {university.world_rank && (
+                                <div className="flex flex-col justify-center items-center w-14 p-1 bg-gray-600 text-white font-semibold rounded-md shadow-lg">
+                                    <span className="text-sm">
+                                        #{university.world_rank}
+                                    </span>
+
+                                    <span className="text-sm">World</span>
+                                </div>
+                            )}
+
+                            {university.country_rank && (
+                                <div
+                                    className={`flex flex-col justify-center items-center w-14 p-1 bg-gray-600 text-white font-semibold rounded-md shadow-lg ${
+                                        university.world_rank && "ml-2"
+                                    }`}
+                                >
+                                    <span className="text-sm">
+                                        #{university.country_rank}
+                                    </span>
+                                    <span className="text-sm">
+                                        {university.alpha_two_code}
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+                    )*/}
                 </CardBody>
                 <CardFooter className="mt-auto pt-0">
                     <a

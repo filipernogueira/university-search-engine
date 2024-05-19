@@ -53,7 +53,7 @@ def crawler(query):
             links.append({"title": title, "link": link, "description": description})
         return links
 
-    for keyword in ["university", "degree"]:
+    for keyword in ["university", "degree", "course"]:
         if keyword not in query.lower():
             adjusted_query = query + " " + keyword
             params = {"q": adjusted_query}
@@ -61,7 +61,7 @@ def crawler(query):
             print(url)
 
             time.sleep(3)
-            response = requests.get(url, headers=bingHeaders)
+            response = requests.get(url)
 
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, 'html.parser')
@@ -75,7 +75,7 @@ def crawler(query):
     print(url)
 
     time.sleep(3)
-    response = requests.get(url, headers=bingHeaders)
+    response = requests.get(url)
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -127,7 +127,7 @@ def rankings(subject, country):
 
 def are_same_university(university1, university2):
     similarity_score = fuzz.token_sort_ratio(university1, university2)
-    return similarity_score >= 92  # Adjust the threshold as needed
+    return similarity_score >= 95  # Adjust the threshold as needed
 
 
 def university_list(country, name, is_check_rankings, load_from_csv, max_university_list_length):
@@ -166,30 +166,48 @@ def check_rankings(country, unis, load_from_csv):
     world_ranking = load_csv('rankings/World.csv') if load_from_csv else rankings("", country)
     if country and country != "" and country != "World":
         country_ranking = load_csv(f'rankings/{country}.csv') if load_from_csv else rankings("", country)
-    else: country_ranking = None
+        country_ranking_dict = {item['University']: item['Rank'] for item in country_ranking}
+    else:
+        country_ranking = None
+        country_ranking_dict = None
 
     for uni in unis:
         uni_name = uni["name"]
         uni_rank = None
+        uni_name_dict = None
 
         for index, item in enumerate(world_ranking):
             item_name = item["University"] if load_from_csv else item["name"]
             if are_same_university(item_name, uni_name):
-                print("ITEM:", item)
-                uni_rank = item['Rank'] if load_from_csv else item['rank'] 
+                uni_rank = item['Rank'] if load_from_csv else item['rank']
+                uni_name_dict = item_name
                 break
 
         uni["world_rank"] = uni_rank
-        uni["country_rank"] = None
         
-        if uni_rank is None and country_ranking is not None:
+        """country_rank = None
+        if country_ranking is not None:
             for index2, item2 in enumerate(country_ranking):
-                item_name = item["University"] if load_from_csv else item["name"]
-                if are_same_university(item_name, uni_name):
-                    uni_rank = item['Rank'] if load_from_csv else item['rank'] 
+                item_name2 = item2["University"] if load_from_csv else item2["name"]
+                if are_same_university(item_name2, uni_name):
+                    country_rank = item2['Rank'] if load_from_csv else item2['rank'] 
                     break
 
-            uni["country_rank"] = uni_rank
+            uni["country_rank"] = country_rank"""
+        
+        country_rank = None
+        if country_ranking is not None:
+            if uni_name_dict is not None and uni_name_dict in country_ranking_dict:
+                country_rank = country_ranking_dict[uni_name_dict]
+            
+            else:
+                for index2, item2 in enumerate(country_ranking):
+                    item_name2 = item2["University"] if load_from_csv else item2["name"]
+                    if are_same_university(item_name2, uni_name):
+                        country_rank = item2['Rank'] if load_from_csv else item2['rank'] 
+                        break
+
+            uni["country_rank"] = country_rank
 
 
 def sort_key(univ):

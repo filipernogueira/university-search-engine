@@ -8,7 +8,7 @@ module.exports = withMT({
             colors: {
                 background: "#FBFBFB",
                 primary: "#282828",
-                secondary: "#AAAAAA",
+                secondary: "#333333",
             },
         },
     },

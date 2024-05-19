@@ -64,6 +64,7 @@ const UniversitiesList = ({
                     <div className="grid grid-cols-3 gap-10 mx-auto">
                         {universities.map((uni, idx) => (
                             <div key={idx}>
+                                {console.log(universities)}
                                 <UniversityCard
                                     university={uni}
                                     country={country}

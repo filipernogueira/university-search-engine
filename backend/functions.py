@@ -89,10 +89,14 @@ def rankings(subject, country):
     base_url = "https://www.scimagoir.com/rankings.php?sector=Higher+educ."
     if subject != "":
         url = base_url + subjects[subject]
-    if country != "":
-        url = base_url + countries[country]
+        if country != "":
+            url += countries[country]
+    elif country != "":
+            url = base_url + countries[country]
 
     universities = []
+
+    print(url)
 
     response = requests.get(url)
 
@@ -102,7 +106,7 @@ def rankings(subject, country):
         table = soup.find('table', id='tbldata')
 
         if table:
-            rows = table.find_all('tr')[1:] if (country == "World" or country != "") else table.find_all('tr')
+            rows = table.find_all('tr')[1:] if (country == "World" or (country != "" and subject == "")) else table.find_all('tr')
             
             for index, row in enumerate(rows):
                 cells = row.find_all('td')
@@ -123,10 +127,10 @@ def rankings(subject, country):
 
 def are_same_university(university1, university2):
     similarity_score = fuzz.token_sort_ratio(university1, university2)
-    return similarity_score >= 90  # You can adjust the threshold as needed
+    return similarity_score >= 92  # Adjust the threshold as needed
 
 
-def university_list(country, name, is_check_rankings, load_from_csv):
+def university_list(country, name, is_check_rankings, load_from_csv, max_university_list_length):
     if not load_from_csv or name != "":
         api_url = "http://universities.hipolabs.com/search?"
 
@@ -145,7 +149,8 @@ def university_list(country, name, is_check_rankings, load_from_csv):
             if is_check_rankings:
                 check_rankings(country, data, load_from_csv)
 
-            return data
+            data = sorted(data, key=sort_key)
+            return data[0:max_university_list_length + 1]
         else:
             print("Error:", response.status_code)
     
@@ -153,35 +158,50 @@ def university_list(country, name, is_check_rankings, load_from_csv):
         data = load_csv(f"universities lists/{country}.csv")
         if is_check_rankings:
             check_rankings(country, data, load_from_csv)
-        return data
-
+        data = sorted(data, key=sort_key)
+        return data[0:max_university_list_length + 1]
 
 
 def check_rankings(country, unis, load_from_csv):
     world_ranking = load_csv('rankings/World.csv') if load_from_csv else rankings("", country)
+    if country and country != "" and country != "World":
+        country_ranking = load_csv(f'rankings/{country}.csv') if load_from_csv else rankings("", country)
+    else: country_ranking = None
 
     for uni in unis:
         uni_name = uni["name"]
         uni_rank = None
 
         for index, item in enumerate(world_ranking):
-            if are_same_university(item['University'], uni_name):
-                uni_rank = item['Rank']
+            item_name = item["University"] if load_from_csv else item["name"]
+            if are_same_university(item_name, uni_name):
+                print("ITEM:", item)
+                uni_rank = item['Rank'] if load_from_csv else item['rank'] 
                 break
 
         uni["world_rank"] = uni_rank
+        uni["country_rank"] = None
         
-        country_ranking = None
-        if uni_rank is None and country and country != "" and country != "World":
-            country_ranking = load_csv(f'rankings/{country}.csv') if load_from_csv else rankings("", country)
-
+        if uni_rank is None and country_ranking is not None:
             for index2, item2 in enumerate(country_ranking):
-                if are_same_university(item2['University'], uni_name):
-                    uni_rank = item2['Rank']
+                item_name = item["University"] if load_from_csv else item["name"]
+                if are_same_university(item_name, uni_name):
+                    uni_rank = item['Rank'] if load_from_csv else item['rank'] 
                     break
 
             uni["country_rank"] = uni_rank
 
+
+def sort_key(univ):
+    def safe_float(value):
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            return float('inf')
+
+    world_rank = safe_float(univ["world_rank"])
+    country_rank = safe_float(univ["country_rank"])
+    return (world_rank, country_rank)
 
 def load_csv(filename):
     data = []

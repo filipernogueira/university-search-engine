@@ -22,19 +22,19 @@ const UniversityCard = ({ university, country }) => {
                     </Typography>
                     <Typography>
                         {university.world_rank ? (
-                            <div>
+                            <>
                                 <span style={{ fontWeight: "bold" }}>
                                     #{university.world_rank}
                                 </span>
                                 <span> World</span>
-                            </div>
+                            </>
                         ) : university.country_rank ? (
-                            <div>
+                            <>
                                 <span style={{ fontWeight: "bold" }}>
                                     #{university.country_rank}
                                 </span>
                                 <span> {country}</span>
-                            </div>
+                            </>
                         ) : (
                             ""
                         )}
@@ -42,7 +42,11 @@ const UniversityCard = ({ university, country }) => {
                 </CardBody>
                 <CardFooter className="mt-auto pt-0">
                     <a
-                        href={university.web_pages[0]}
+                        href={
+                            university.web_pages[0] !== "h"
+                                ? university.web_pages[0]
+                                : university.web_pages
+                        }
                         target="_blank"
                         className="inline-block"
                     >

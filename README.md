@@ -2,9 +2,10 @@
 
 ## Running Instructions:
 
--   **Install backend requirements:**
+-   **Install requirements:**
 
-    -   First navigate to the backend folder `cd backend`, then install the requirements pip `install -r requirements.txt`
+    -   To install the **backend's requirements** navigate to the backend folder `cd backend`, then install the requirements pip `install -r requirements.txt`
+    - To install the **frontend's requirements**, which is built in React,  you have to install the latest versions of **Node.js** and **npm**.
 
 -   **Run the backend:**
 
@@ -12,7 +13,7 @@
     -   Run the server's API `python3 app.py`.
 
 -   **Run the frontend:**
-    -   Open another terminal (in the root of the project), and run the `npm start`.
+    -   Open another terminal (in the root of the project), and run `npm start`.
 
 ## For Better Performance:
 

@@ -3,7 +3,6 @@
 # dependencies
 /node_modules/
 /backend/__pycache__/
-/backend/LLM/ai
 /backend/universities_lists
 /backend/rankings
 /.pnp

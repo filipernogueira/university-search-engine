@@ -22,7 +22,7 @@ def get_ranking():
     subject = "" if subject is None else subject
     country = "" if country is None else country
     if (subject != "" or country != ""):
-        ranking = rankings(subject, country)
+        ranking = rankings(subject, country, load_from_csv)
         return jsonify(ranking)
     else:
         return jsonify([])
@@ -36,4 +36,5 @@ def get_university_list():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    #app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(port=5000, debug=False)

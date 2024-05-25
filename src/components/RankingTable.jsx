@@ -19,13 +19,13 @@ const RankingTable = ({ universities }) => {
                     {universities.map((university, idx) => (
                         <tr key={idx}>
                             <td className="text-center p-4">
-                                {university.rank}
+                                {university.Rank}
                             </td>
                             <td className="text-center p-4">
-                                {university.name}
+                                {university.University}
                             </td>
                             <td className="text-center p-4">
-                                {university.country}
+                                {university.Country}
                             </td>
                         </tr>
                     ))}

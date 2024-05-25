@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from functions import crawler, rankings, university_list
 
-load_from_csv = True
+load_from_csv = False
 is_check_rankings = True
 max_university_list_length = 500
 

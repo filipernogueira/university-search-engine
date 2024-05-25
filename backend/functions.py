@@ -76,17 +76,6 @@ def crawler(query):
 def rankings(subject, country, load_from_csv):
     if load_from_csv and country != "" and subject == "":
         ranking = load_csv(f'rankings/{country}.csv')
-
-        # Renaming fields
-        """renamed_ranking = []
-        for record in ranking:
-            renamed_record = {
-                'country': record.get('Country'),
-                'rank': record.get('Rank'),
-                'name': record.get('University')
-            }
-            renamed_ranking.append(renamed_record)"""
-
         return ranking
 
     else:
@@ -167,10 +156,10 @@ def university_list(country, name, is_check_rankings, load_from_csv, max_univers
 
 
 def check_rankings(country, unis, load_from_csv):
-    world_ranking = load_csv('rankings/World.csv') if load_from_csv else rankings("", country)
+    world_ranking = load_csv('rankings/World.csv') if load_from_csv else rankings("", "World", load_from_csv)
     if country and country != "" and country != "World":
-        country_ranking = load_csv(f'rankings/{country}.csv') if load_from_csv else rankings("", country)
-        country_ranking_dict = {item['University']: item['Rank'] for item in country_ranking} if load_from_csv else {item['name']: item['rank'] for item in country_ranking}
+        country_ranking = load_csv(f'rankings/{country}.csv') if load_from_csv else rankings("", country, load_from_csv)
+        country_ranking_dict = {item['University']: item['Rank'] for item in country_ranking}
     else:
         country_ranking, country_ranking_dict = None, None
 
@@ -180,9 +169,9 @@ def check_rankings(country, unis, load_from_csv):
         uni_name_dict = None
 
         for index, item in enumerate(world_ranking):
-            item_name = item["University"] if load_from_csv else item["name"]
+            item_name = item["University"]
             if are_same_university(item_name, uni_name):
-                uni_rank = item['Rank'] if load_from_csv else item['rank']
+                uni_rank = item['Rank']
                 uni_name_dict = item_name
                 break
 
@@ -196,9 +185,9 @@ def check_rankings(country, unis, load_from_csv):
             
             else:
                 for index2, item2 in enumerate(country_ranking):
-                    item_name2 = item2["University"] if load_from_csv else item2["name"]
+                    item_name2 = item2["University"]
                     if are_same_university(item_name2, uni_name):
-                        country_rank = item2['Rank'] if load_from_csv else item2['rank'] 
+                        country_rank = item2['Rank']
                         break
 
         uni["country_rank"] = country_rank

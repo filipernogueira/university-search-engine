@@ -1,8 +1,8 @@
 import { RankingTable, Dropdown, ActionButton } from "../components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { Button, Spinner } from "@material-tailwind/react";
+import { Spinner } from "@material-tailwind/react";
 import { url } from "../backendUrl.js";
 import { searchLogo } from "../utils/logosSVG";
 import axios from "axios";

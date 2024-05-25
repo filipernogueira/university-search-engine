@@ -6,6 +6,9 @@ import time
 import csv
 
 
+api_url = "http://universities.hipolabs.com/search?"
+ranking_base_url = "https://www.scimagoir.com/rankings.php?sector=Higher+educ."
+
 subjects = {
     "Computer Science": "&area=1700",
     "Engineering": "&area=2200",
@@ -79,13 +82,12 @@ def rankings(subject, country, load_from_csv):
         return ranking
 
     else:
-        base_url = "https://www.scimagoir.com/rankings.php?sector=Higher+educ."
         if subject != "":
-            url = base_url + subjects[subject]
+            url = ranking_base_url + subjects[subject]
             if country != "":
                 url += countries[country]
         elif country != "":
-                url = base_url + countries[country]
+                url = ranking_base_url + countries[country]
 
         universities = []
 
@@ -123,8 +125,6 @@ def are_same_university(university1, university2):
 
 def university_list(country, name, is_check_rankings, load_from_csv, max_university_list_length, sort=True):
     if not load_from_csv or name != "":
-        api_url = "http://universities.hipolabs.com/search?"
-
         if country != "":
             api_url += "country=" + country
             if name != "":

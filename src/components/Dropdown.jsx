@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Select, Option } from "@material-tailwind/react";
 
 const Dropdown = ({ label, options, value, setValue }) => {

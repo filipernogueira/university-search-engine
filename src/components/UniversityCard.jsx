@@ -44,7 +44,8 @@ const UniversityCard = ({ university }) => {
                         )}
                     </div>
 
-                    {/*(university.world_rank || university.country_rank) && (
+                    {/* Another way of presenting the Rankings
+                    (university.world_rank || university.country_rank) && (
                         <div className="flex items-center mt-2">
                             {university.world_rank && (
                                 <div className="flex flex-col justify-center items-center w-14 p-1 bg-gray-600 text-white font-semibold rounded-md shadow-lg">

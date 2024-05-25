@@ -7,6 +7,7 @@ This project consists in a Search Engine with Universities as the theme. It has 
 -   **Rankings** - Updated rankings per country and subject.
 
 Here is the main page:
+
 ![Main page](src/utils/main_page.png)
 
 ## Tech Stack
@@ -22,7 +23,7 @@ University's Search Engine was made with the following Tech Stack:
 -   **Install requirements:**
 
     -   To install the **backend's requirements** navigate to the backend folder `cd backend`, then install the requirements pip `install -r requirements.txt`
-    -   To install the **frontend's requirements**, which is built in React, you have to install the latest versions of **Node.js** and **npm**.
+    -   To install the **frontend's requirements**, which is built in React, you have to install the latest versions of **Node.js** and **npm**, then you should run `npm i` to install all of its requirements.
 
 -   **Run the backend:**
 

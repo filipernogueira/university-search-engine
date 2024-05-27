@@ -3,10 +3,22 @@ from functions import rankings, university_list, countries
 import csv
 
 def ensure_folder_exists(folder_path):
+    """Ensure that a certain folder exists, if it doesn't, create it
+
+    Args:
+        folder_path (string): pathe to the folder
+    """
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
 def save_to_csv(data, filename, ranking):
+    """Save data to csv file
+
+    Args:
+        data (List[dict]): List of Universities/Rankings
+        filename (string): Path to the file
+        ranking (boolean): Check if we are saving universities or rankings
+    """
     ensure_folder_exists(os.path.dirname(filename))
     if ranking:
         with open(filename, 'w', newline='', encoding='utf-8') as csvfile:

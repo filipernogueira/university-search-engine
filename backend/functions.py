@@ -47,7 +47,20 @@ bingHeaders = {
 }
 
 def crawler(query):
+    """This function gets a query and searches for it in big.com, appending a university related keyword to the query
+
+    Args:
+        query (string): User's query
+    """
     def extract_links(soup):
+        """This fucntion gets a soup of the source's page and gathers every university from it
+
+        Args:
+            soup (bs4.BeautifulSoup): Soup of the source's page
+
+        Returns:
+            List[dict]: {"title": x, "link": y, "description": z}
+        """
         links = []
         for result in soup.find_all('li', class_="b_algo"):
             title = result.find('h2').get_text()
@@ -77,6 +90,16 @@ def crawler(query):
 
 
 def rankings(subject, country, load_from_csv):
+    """This function that gets the rankings of universities from the source Scimago, or csv
+
+    Args:
+        subject (string): Study Subject
+        country (string): Country
+        load_from_csv (boolean): To decide if we get the data from source or from csv
+
+    Returns:
+        List[dict]: A list of dicts representing universities, ex: {"University": x, "Rank": y, "Country": z}
+    """
     if load_from_csv and country != "" and subject == "":
         ranking = load_csv(f'rankings/{country}.csv')
         return ranking
@@ -119,29 +142,51 @@ def rankings(subject, country, load_from_csv):
 
 
 def are_same_university(university1, university2):
+    """This function checks if 2 strings represents the same university's name
+
+    Args:
+        university1 (string): First university's name
+        university2 (string): Second university's name
+
+    Returns:
+        boolean: Represents if both args represent the same university
+    """
     similarity_score = fuzz.token_sort_ratio(university1, university2)
     return similarity_score >= 95  # Adjust the threshold as needed
 
 
 def university_list(country, name, is_check_rankings, load_from_csv, max_university_list_length, sort=True):
+    """This function retrieves the list of all Universities based on the inputs
+
+    Args:
+        country (string): Country
+        name (string): University's name
+        is_check_rankings (boolean): Variable to know if there's need to check the rankings of the universities or not
+        load_from_csv (boolean): To decide if we get the data from source or from csv
+        max_university_list_length (integer): Maximum length of the list
+        sort (boolean, optional): Variable to check if there is need to sorte by rank. Defaults to True.
+
+    Returns:
+        List[dict]: List of all Universities
+    """
+    url = ""
     if not load_from_csv or name != "":
         if country != "":
-            api_url += "country=" + country
+            url = api_url + "country=" + country
             if name != "":
-                api_url += "&name=" + name
+                url += "&name=" + name
         elif name != "":
-            api_url += "name=" + name
+            url = api_url + "name=" + name
 
-        response = requests.get(api_url)
+        response = requests.get(url)
 
         if response.status_code == 200:
             data = response.json()
 
             if is_check_rankings:
                 check_rankings(country, data, load_from_csv)
-
-            if sort:
-                data = sorted(data, key=sort_key)
+                if sort:
+                    data = sorted(data, key=sort_key)
         else:
             print("Error:", response.status_code)
     
@@ -149,13 +194,20 @@ def university_list(country, name, is_check_rankings, load_from_csv, max_univers
         data = load_csv(f"universities_lists/{country}.csv")
         if is_check_rankings:
             check_rankings(country, data, load_from_csv)
-        if sort:
-            data = sorted(data, key=sort_key)
+            if sort:
+                data = sorted(data, key=sort_key)
     
     return data[0:max_university_list_length]
 
 
 def check_rankings(country, unis, load_from_csv):
+    """This function checks the world and country ranking of a list of universities
+
+    Args:
+        country (string): Country
+        unis (List[dict]): List of Universities
+        load_from_csv (boolean): To decide if we get the data from source or from csv
+    """
     world_ranking = load_csv('rankings/World.csv') if load_from_csv else rankings("", "World", load_from_csv)
     if country and country != "" and country != "World":
         country_ranking = load_csv(f'rankings/{country}.csv') if load_from_csv else rankings("", country, load_from_csv)
@@ -194,6 +246,11 @@ def check_rankings(country, unis, load_from_csv):
 
 
 def sort_key(univ):
+    """This function returns the sorting key to sorte the list of Universities
+
+    Args:
+        univ (dict): Dictionary that represents the University
+    """
     def safe_float(value):
         try:
             return float(value)
@@ -204,7 +261,16 @@ def sort_key(univ):
     country_rank = safe_float(univ["country_rank"])
     return (world_rank, country_rank)
 
+
 def load_csv(filename):
+    """This function loads a csv
+
+    Args:
+        filename (string): Path to the file
+
+    Returns:
+        List[dict]: List of dictionaries
+    """
     data = []
     with open(filename, 'r', newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)

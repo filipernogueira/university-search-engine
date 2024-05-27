@@ -14,9 +14,10 @@ Here is the main page:
 
 University's Search Engine was made with the following Tech Stack:
 
+-   [Python](https://www.python.org/) - A versatile programming language used for the backend development, and data processing.
+-   [Flask](https://flask.palletsprojects.com/en/3.0.x/) - A python framework to build API's
 -   [React.js](https://react.dev/) - A JavaScript Framework for Web Development;
 -   [Tailwind CSS](https://tailwindcss.com/) - A CSS Framework;
--   [Python](https://www.python.org/) - A versatile programming language used for the backend development, and data processing.
 
 ## Running Instructions:
 
@@ -42,7 +43,7 @@ This project is done to run in 2 different ways:
 
 By default the 1st one is being used, however if you want to experience better performance you can choose the 2nd one.
 
-To change from the 1st option to the second, you just have to:
+To change from the 1st option to the 2nd, you just have to:
 
 -   `cd backend`;
 -   `python3 fill_csv_files.py`, to generate the csv files;
@@ -52,7 +53,7 @@ With this change you will experience better performance, however don't forget to
 
 ## Dependencies
 
-University's Search Engine relies on the following external APIs and libraries:
+University's Search Engine relies on the following external API's and libraries:
 
 -   [Hipo/university-domains-list-api](https://github.com/Hipo/university-domains-list-api) - This API is used to retrieve all the universities;
 -   [Scimago Institution Rankings](imagoir.com/rankings.php?sector=Higher+educ.) - This website is the source of the rankings.

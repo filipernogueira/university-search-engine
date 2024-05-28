@@ -1,4 +1,4 @@
-﻿# University's Search Engine
+﻿# university-search-engine
 
 This project consists in a Search Engine with Universities as the theme. It has 3 main features, **Universities List**, **General Search**, and **Rankings**.
 
@@ -6,25 +6,29 @@ This project consists in a Search Engine with Universities as the theme. It has 
 -   **General Search** - A normal web search as in normal SE's, the main difference is that the results are going to be university/related related;
 -   **Rankings** - Updated rankings per country and subject.
 
-Here is the main page:
+|             **Main Page**             |                  **Universities List Page**                   |
+| :-----------------------------------: | :-----------------------------------------------------------: |
+| ![Main page](src/utils/main_page.png) | ![University's List Page](src/utils/university_list_page.png) |
 
-![Main page](src/utils/main_page.png)
+|              **General Search Page**               |               **Rankings Page**               |
+| :------------------------------------------------: | :-------------------------------------------: |
+| ![Search Results Page](src/utils/results_page.png) | ![Rankings Page](src/utils/rankings_page.png) |
 
 ## Tech Stack
 
 University's Search Engine was made with the following Tech Stack:
 
--   [Python](https://www.python.org/) - A versatile programming language used for the backend development, and data processing.
--   [Flask](https://flask.palletsprojects.com/en/3.0.x/) - A python framework to build API's
+-   [Python](https://www.python.org/) - A versatile programming language used for the backend development, and data processing;
+-   [Flask](https://flask.palletsprojects.com/en/3.0.x/) - A python framework to build API's;
 -   [React.js](https://react.dev/) - A JavaScript Framework for Web Development;
--   [Tailwind CSS](https://tailwindcss.com/) - A CSS Framework;
+-   [Tailwind CSS](https://tailwindcss.com/) - A CSS Framework.
 
 ## Running Instructions:
 
 -   **Install requirements:**
 
-    -   To install the **backend's requirements** navigate to the backend folder `cd backend`, then install the requirements pip `install -r requirements.txt`
-    -   To install the **frontend's requirements**, which is built in React, you have to install the latest versions of **Node.js** and **npm**, then you should run `npm i` to install all of its requirements.
+    -   To install the **backend's requirements** navigate to the backend folder `cd backend`, then install the requirements `pip install -r requirements.txt`;
+    -   To install the **frontend's requirements**, which is built in React, you have to install the latest versions of **Node.js** and **npm**, then you should run `npm i` to install all of its requirements (in the root).
 
 -   **Run the backend:**
 

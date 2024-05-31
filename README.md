@@ -6,13 +6,13 @@ This project consists in a Search Engine with Universities as the theme. It has 
 -   **General Search** - A normal web search as in normal SE's, the main difference is that the results are going to be university/related related;
 -   **Rankings** - Updated rankings per country and subject.
 
-|             **Main Page**             |                  **Universities List Page**                   |
-| :-----------------------------------: | :-----------------------------------------------------------: |
-| ![Main page](src/utils/main_page.png) | ![University's List Page](src/utils/university_list_page.png) |
+|                          **Main Page**                          |                               **Universities List Page**                                |
+| :-------------------------------------------------------------: | :-------------------------------------------------------------------------------------: |
+| <img src="src/utils/main_page.png" alt="Main page" width="300"> | <img src="src/utils/university_list_page.png" alt="University's List Page" width="300"> |
 
-|              **General Search Page**               |               **Rankings Page**               |
-| :------------------------------------------------: | :-------------------------------------------: |
-| ![Search Results Page](src/utils/results_page.png) | ![Rankings Page](src/utils/rankings_page.png) |
+|                           **General Search Page**                            |                            **Rankings Page**                            |
+| :--------------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| <img src="src/utils/results_page.png" alt="Search Results Page" width="300"> | <img src="src/utils/rankings_page.png" alt="Rankings Page" width="300"> |
 
 ## Tech Stack
 

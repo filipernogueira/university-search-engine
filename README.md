@@ -6,13 +6,21 @@ This project consists in a Search Engine with Universities as the theme. It has 
 -   **General Search** - A normal web search as in normal SE's, the main difference is that the results are going to be university/related related;
 -   **Rankings** - Updated rankings per country and subject.
 
-|                          **Main Page**                          |                               **Universities List Page**                                |
-| :-------------------------------------------------------------: | :-------------------------------------------------------------------------------------: |
-| <img src="src/utils/main_page.png" alt="Main page" width="300"> | <img src="src/utils/university_list_page.png" alt="University's List Page" width="300"> |
+|                                **Main Page**                                |                                     **Universities List Page**                                      |
+| :-------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: |
+| <img src="src/utils/site_images/main_page.png" alt="Main page" width="300"> | <img src="src/utils/site_images/university_list_page.png" alt="University's List Page" width="300"> |
 
-|                           **General Search Page**                            |                            **Rankings Page**                            |
-| :--------------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| <img src="src/utils/results_page.png" alt="Search Results Page" width="300"> | <img src="src/utils/rankings_page.png" alt="Rankings Page" width="300"> |
+|                                 **General Search Page**                                  |                                  **Rankings Page**                                  |
+| :--------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
+| <img src="src/utils/site_images/results_page.png" alt="Search Results Page" width="300"> | <img src="src/utils/site_images/rankings_page.png" alt="Rankings Page" width="300"> |
+
+## Table of Contents
+
+1. [Tech Stack](#tech-stack)
+2. [Running Instructions](#running-instructions)
+3. [For Better Performance](#for-better-performance)
+4. [Dependencies](#dependencies)
+5. [License](#license)
 
 ## Tech Stack
 
